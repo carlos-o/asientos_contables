@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asientos Contables</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+        integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="m-12">
+        {% block content %}
+        {% endblock %}
+        <div id="toast-container" class="toast toast-end toast-top z-[100]">
+        </div>
+    </div>
+    <script>
+        document.body.addEventListener('htmx:beforeSwap', function (evt) {
+            if (evt.detail.xhr.status >= 400) {
+                evt.detail.target = htmx.find("#toast-container");
+                evt.detail.swap = "afterbegin";
+                evt.detail.shouldSwap = true;
+            }
+        });
+
+        document.body.addEventListener('open-modal', function () {
+            ledger_modal.showModal();
+        });
+    </script>
+</body>
+
+</html>

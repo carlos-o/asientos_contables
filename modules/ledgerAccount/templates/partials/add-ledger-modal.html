@@ -1,0 +1,62 @@
+<dialog id="ledger_modal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">
+            {% if ledger_account %}Edit Ledger Account{% else %}Add New Ledger Account{% endif %}
+        </h3>
+
+        {% if ledger_account %}
+        <form hx-put="{% url 'ledger_account_detail' ledger_account.id %}" hx-target="#ledger-{{ ledger_account.id }}"
+            hx-swap="outerHTML" hx-on:ledger-updated="ledger_modal.close(); this.reset();"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="mb-4">
+            {% else %}
+            <form hx-post="{% url 'ledger_account' %}" hx-target="#ledger-table-body" hx-swap="afterbegin"
+                hx-on:success="ledger_modal.close(); this.reset();" class="mb-4">
+                {% endif %}
+                {% csrf_token %}
+
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">Code</span>
+                    </label>
+                    {{ form.code }}
+                    {% if form.code.errors %}
+                    <label class="label text-error">
+                        {{ form.code.errors }}
+                    </label>
+                    {% endif %}
+                </div>
+
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">Name</span>
+                    </label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                    <label class="label text-error">
+                        {{ form.name.errors }}
+                    </label>
+                    {% endif %}
+                </div>
+
+                <div class="form-control w-full">
+                    <label class="label">
+                        <span class="label-text">Description</span>
+                    </label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                    <label class="label text-error">
+                        {{ form.description.errors }}
+                    </label>
+                    {% endif %}
+                </div>
+
+                <div class="modal-action">
+                    <button type="reset" class="btn" onclick="ledger_modal.close()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        {% if ledger_account %}Save Changes{% else %}Add Ledger Account{% endif %}
+                    </button>
+                </div>
+
+            </form>
+    </div>
+</dialog>

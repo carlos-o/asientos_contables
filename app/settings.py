@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'modules.ledgerAccount',
     'modules.accountingEntry',
     'modules.accountingMovement',
+    'modules.utils'
 ]
 
 MIDDLEWARE = [
