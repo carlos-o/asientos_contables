@@ -1,0 +1,27 @@
+<div id="accounting-entry-list">
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-pin-rows">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Entry Number</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>State</th>
+                    <th>Movements</th>
+                </tr>
+            </thead>
+            <tbody id="accounting-entry-table-body">
+                {% for entry in accounting_entries %}
+                {% include 'partials/accounting-entry-row.html' with entry=entry %}
+                {% empty %}
+                <tr id="no-entries-row">
+                    <td colspan="6" class="p-4 text-center opacity-50 italic">
+                        No accounting entries found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

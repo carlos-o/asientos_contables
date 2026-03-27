@@ -1,0 +1,27 @@
+<div id="ledger-list">
+    <div class="overflow-x-auto">
+        <table class="table table-zebra table-pin-rows">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Created at</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="ledger-table-body">
+                {% for ledger in ledger_accounts %}
+                {% include 'partials/ledger-row.html' %}
+                {% empty %}
+                <tr id="no-entries-row">
+                    <td colspan="6" class="p-4 text-center opacity-50 italic">
+                        No ledger accounts found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
