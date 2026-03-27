@@ -8,7 +8,7 @@
             hx-on::after-request="ledger_modal.showModal()" class="btn btn-xs btn-primary">Edit</button>
         <button hx-delete="{% url 'ledger_account_detail' ledger.id %}"
             hx-on:ledger-deleted="this.closest('tr').remove();"
-            hx-confirm="¿Estás seguro de que deseas eliminar esta cuenta?" hx-target-error="#toast-container"
+            hx-confirm="¿Are you sure you want to delete this account?" hx-target-error="#toast-container"
             hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="btn btn-xs btn-error">Delete</button>
     </td>
 </tr>

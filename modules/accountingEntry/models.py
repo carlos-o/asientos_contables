@@ -41,4 +41,16 @@ class AccountingEntry(models.Model):
         ordering = ['-date', '-id']
 
     def __str__(self):
-        return self.description
+        return f"{self.entry_number} | {self.description}"
+
+    @property
+    def total_debit(self):
+        return self.movements.aggregate(models.Sum('debit'))['debit__sum'] or 0
+
+    @property
+    def total_credit(self):
+        return self.movements.aggregate(models.Sum('credit'))['credit__sum'] or 0
+
+    @property
+    def is_balanced(self):
+        return self.total_debit == self.total_credit

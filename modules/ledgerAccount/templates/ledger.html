@@ -3,11 +3,11 @@
 {% block content %}
 
 <div>
-    <h1 class="text-4xl text-success mb-4">Ledger Account</h1>
+    {% include 'breadcrumbs.html' %}
 
     <button class="btn btn-primary mb-4" hx-get="{% url 'ledger_account' %}" hx-target="#ledger_modal"
         hx-swap="outerHTML" hx-on::after-request="ledger_modal.showModal()">
-        Add New Ledger Account
+        Add Ledger Account
     </button>
     {% include 'partials/add-ledger-modal.html' %}
 

@@ -1,0 +1,27 @@
+<div class="p-4 bg-base-200/50 rounded-lg">
+    <table class="table table-sm w-full">
+        <thead>
+            <tr>
+                <th>Account</th>
+                <th class="text-right">Debit</th>
+                <th class="text-right">Credit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movement in movements %}
+            <tr>
+                <td>{{ movement.ledger_account.code }} | {{ movement.ledger_account.name }}</td>
+                <td class="text-right">{{ movement.debit|floatformat:2 }}</td>
+                <td class="text-right">{{ movement.credit|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="font-bold">
+                <td class="text-right">Total:</td>
+                <td class="text-right">{{ accounting_entry.total_debit|floatformat:2 }}</td>
+                <td class="text-right">{{ accounting_entry.total_credit|floatformat:2 }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

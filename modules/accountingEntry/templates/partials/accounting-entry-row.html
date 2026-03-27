@@ -1,0 +1,49 @@
+<tr id="entry-{{ entry.id }}" class="cursor-pointer hover:bg-base-200/50 transition-colors"
+    onclick="window.toggleMovements({{ entry.id }})">
+    <td>{{ entry.date|date:"d/m/Y" }}</td>
+    <td>{{ entry.entry_number|default:"-" }}</td>
+    <td>{{ entry.description|truncatechars:50 }}</td>
+    <td>{{ entry.get_type_display }}</td>
+    <td>
+        {% if entry.state == 'DR' %}
+        <span class="badge badge-warning">Borrador</span>
+        {% elif entry.state == 'RE' %}
+        <span class="badge badge-success">Registrado</span>
+        {% else %}
+        <span class="badge badge-error">Cancelado</span>
+        {% endif %}
+    </td>
+    <td class="text-left">
+        <button type="button" class="btn btn-sm btn-primary">
+            <span>View Movements</span>
+        </button>
+    </td>
+</tr>
+
+<tr id="movements-row-{{ entry.id }}" class="hidden bg-base-200/30">
+    <td colspan="6">
+        <div id="movements-content-{{ entry.id }}" hx-get="{% url 'accounting_movement_list' entry.id %}"
+            hx-trigger="revealed once" class="p-4">
+            <div class="flex justify-center">
+                <span class="loading loading-spinner loading-md text-primary"></span>
+            </div>
+        </div>
+    </td>
+</tr>
+
+{% if forloop.first %}
+<script>
+    if (typeof window.toggleMovements !== 'function') {
+        window.toggleMovements = function (id) {
+            const row = document.getElementById('movements-row-' + id);
+            if (row) {
+                row.classList.toggle('hidden');
+                const icon = document.getElementById('icon-' + id);
+                if (icon) {
+                    icon.classList.toggle('rotate-180');
+                }
+            }
+        };
+    }
+</script>
+{% endif %}

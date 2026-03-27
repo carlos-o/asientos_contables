@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    {% include 'breadcrumbs.html' %}
+
+    <button class="btn btn-primary mb-4" hx-get="{% url 'accounting_entry' %}" hx-target="#accounting_entry_modal"
+        hx-swap="outerHTML" hx-on::after-request="accounting_entry_modal.showModal()">
+        Add Accounting Entry
+    </button>
+
+    {% include 'partials/add-accounting-entry-modal.html' %}
+
+    <div id="accounting-entry-list-container">
+        {% include 'partials/accounting-entry-list.html' %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.addEventListener('fail', () => {
+            document.getElementById('accounting_entry_modal').showModal();
+        });
+    });
+</script>
+{% endblock %}

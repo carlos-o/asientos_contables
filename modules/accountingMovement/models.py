@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class AccountingMovement(models.Model):
-    accounting_entry = models.ForeignKey('accountingEntry.AccountingEntry', on_delete=models.CASCADE)
+    accounting_entry = models.ForeignKey('accountingEntry.AccountingEntry', related_name='movements', on_delete=models.CASCADE)
     ledger_account = models.ForeignKey('ledgerAccount.LedgerAccount', on_delete=models.PROTECT)
     debit = models.DecimalField(max_digits=19, decimal_places=2)
     credit = models.DecimalField(max_digits=19, decimal_places=2)

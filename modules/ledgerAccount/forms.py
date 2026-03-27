@@ -53,7 +53,6 @@ class LedgerAccountEditForm(forms.ModelForm):
 
     def clean_code(self):
         code = self.cleaned_data['code']
-        # Exclude the current instance so editing without changing code doesn't fail
         qs = LedgerAccount.objects.filter(code=code)
         if self.instance and self.instance.pk:
             qs = qs.exclude(pk=self.instance.pk)

@@ -20,4 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('modules.ledgerAccount.urls')),
+    path('accounting-entries/', include('modules.accountingEntry.urls')),
+    path('accounting-movements/', include('modules.accountingMovement.urls')),
 ]
